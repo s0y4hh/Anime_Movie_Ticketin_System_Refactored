@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="text-center">Buy Your Ticket</h2>
+<div class="card mt-4">
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('buy_ticket') }}">
+            <div class="mb-3">
+                <label for="name" class="form-label">Your Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Next</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

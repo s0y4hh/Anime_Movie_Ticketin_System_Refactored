@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="text-center">Select Movie, Seats, Date, and Time</h2>
+<div class="card mt-4">
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('select_movie', user_id=user.id) }}">
+            <h4>Select a Movie</h4>
+            <div class="mb-3">
+                <label for="movie" class="form-label">Movies</label>
+                <select class="form-select" id="movie" name="movie" required>
+                    {% for movie in movies %}
+                    <option value="{{ movie.id }}">{{ movie.title }} - ₱{{ movie.price }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Number of Tickets</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
+            </div>
+
+            <h4>Seat Selection</h4>
+            <div class="mb-3">
+                <label for="seat" class="form-label">Enter Seat Number</label>
+                <input type="text" class="form-control" id="seat" name="seat" placeholder="e.g., A1, B2" required>
+            </div>
+
+            <h4>Viewing Date and Time</h4>
+            <div class="mb-3">
+                <label for="date" class="form-label">Select Date</label>
+                <input type="date" class="form-control" id="date" name="date" required>
+            </div>
+            <div class="mb-3">
+                <label for="time" class="form-label">Select Time</label>
+                <input type="time" class="form-control" id="time" name="time" required>
+            </div>
+
+            <h4>Select Snacks (Optional)</h4>
+            <div class="mb-3">
+                {% for snack in snacks %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="snacks" value="{{ snack.id }}" id="snack{{ snack.id }}">
+                    <label class="form-check-label" for="snack{{ snack.id }}">
+                        {{ snack.name }} - ₱{{ snack.price }}
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+
+            <h4>Select Drinks (Optional)</h4>
+            <div class="mb-3">
+                {% for drink in drinks %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="drinks" value="{{ drink.id }}" id="drink{{ drink.id }}">
+                    <label class="form-check-label" for="drink{{ drink.id }}">
+                        {{ drink.name }} - ₱{{ drink.price }}
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+
+            <button type="submit" class="btn btn-success">Generate Receipt</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
